@@ -2,7 +2,8 @@ import UserModel from "../model/userSchema.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-const SECRETKEY = process.env.PRIVATE_KEY;
+const expiresInOneWeek = 60 * 60 * 24 * 7; 
+// const SECRETKEY = process.env.PRIVATE_KEY;
 
 const SignupController = async (req, res) => {
   const { fname, email, password, cpassword } = req.body;
@@ -59,7 +60,7 @@ const LoginController = async (req, res) => {
   if (!email || !password) {
     return res.status(400).json({
       status: 400,
-      message: "Required fiels are missing",
+      message: "Required fields are missing",
       data: "null",
     });
   }
@@ -78,18 +79,20 @@ const LoginController = async (req, res) => {
     if (!comparePassword) {
       return res.status(400).json({
         status: 400,
-        message: "Invalid password",
+        message: "Invalid credental",
         data: "null",
       });
     }
-    console.log("SECRETKEY:", SECRETKEY);
-    let token = jwt.sign({ email: userExist.email }, "mom");
+    console.log(process.env.PRIVATE_KEY);
+    // create token
+    let token = jwt.sign({ email: userExist.email }, "mom",{expiresInOneWeek});
     return res.status(200).json({
       status: 200,
       message: "User logged in successfully",
       data: userExist,
       token: token,
     });
+    
   } catch (error) {
     return res.status(400).json({
       status: 400,
