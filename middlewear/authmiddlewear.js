@@ -1,25 +1,27 @@
 import jwt from "jsonwebtoken";
+import UserModel from "../model/userSchema.js";
 const authMiddelwear = async (req,res,next)=>{  
     try{
-        if(req.header["authorization"]){
-            const token = req.header["authorization"].split(" ");
-            const isVerify = jwt.verify(token[1],"mom");
-            // const userDb = await UserModel.findOne({email:isVerify.email})
-            if(isVerify){
-                next()
-            }else{
-                res.status(401).json({
-                    message:"unauthorized user"
-                })
-    
-        }
+        const token = req.headers["authorization"].split(" ")[1]; 
+        const verifyToken = jwt.verify(token,"mom");
+        // console.log("verifyToken",verifyToken);
+
+        const verifyuserdata = await UserModel.findOne({email:verifyToken.email})
+        const verifyuserId = verifyuserdata._id
+        req.verifyuserId = verifyuserId
+        console.log("verifyId",verifyuserId);
+        // req.userData = verifyuserdata;  
+        // console.log("verify user data",req.userData);
+        next();
+
+    }catch(err){
+        console.log(err.message);
+        res.status(401).json({
+            status: 401,
+            message: "Unauthorized",
+            data: "null"
+        })
     }
-}
-catch{
-    res.status(401).json({
-        message:"unauthorized"
-    })
-}
 }
 
 export default authMiddelwear

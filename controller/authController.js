@@ -1,12 +1,14 @@
 import UserModel from "../model/userSchema.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+       
 
-const expiresInOneWeek = 60 * 60 * 24 * 7; 
+// const expiresInOneWeek = 60 * 60 * 24 * 7; 
 // const SECRETKEY = process.env.PRIVATE_KEY;
 
 const SignupController = async (req, res) => {
   const { fname, email, password, cpassword } = req.body;
+
 
   if (!fname || !email || !password || !cpassword) {
     return res.status(400).json({
@@ -56,17 +58,12 @@ const SignupController = async (req, res) => {
 };
 
 const LoginController = async (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return res.status(400).json({
-      status: 400,
-      message: "Required fields are missing",
-      data: "null",
-    });
-  }
-
   try {
+  const { email, password } = req.body;
+  // console.log(email);
+  // console.log(password);
     const userExist = await UserModel.findOne({ email });
+    console.log("userExist",userExist);
     if (!userExist) {
       return res.status(400).json({
         status: 400,
@@ -83,9 +80,8 @@ const LoginController = async (req, res) => {
         data: "null",
       });
     }
-    console.log(process.env.PRIVATE_KEY);
     // create token
-    let token = jwt.sign({ email: userExist.email }, "mom",{expiresInOneWeek});
+    let token = jwt.sign({ email: userExist.email },"mom");
     return res.status(200).json({
       status: 200,
       message: "User logged in successfully",
@@ -94,6 +90,7 @@ const LoginController = async (req, res) => {
     });
     
   } catch (error) {
+    console.log(error);
     return res.status(400).json({
       status: 400,
       message: "Internal Server Error",
@@ -101,5 +98,4 @@ const LoginController = async (req, res) => {
     });
   }
 };
-
 export { SignupController, LoginController };
