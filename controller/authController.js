@@ -9,7 +9,6 @@ import jwt from "jsonwebtoken";
 const SignupController = async (req, res) => {
   const { fname, email, password, cpassword } = req.body;
 
-
   if (!fname || !email || !password || !cpassword) {
     return res.status(400).json({
       status: false,
@@ -56,6 +55,7 @@ const SignupController = async (req, res) => {
     });
   }
 };
+
 
 const LoginController = async (req, res) => {
   try {
