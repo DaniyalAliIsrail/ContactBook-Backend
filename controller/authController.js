@@ -60,10 +60,9 @@ const SignupController = async (req, res) => {
 const LoginController = async (req, res) => {
   try {
   const { email, password } = req.body;
-  // console.log(email);
-  // console.log(password);
+
     const userExist = await UserModel.findOne({ email });
-    console.log("userExist",userExist);
+    // console.log("userExist",userExist);
     if (!userExist) {
       return res.status(400).json({
         status: 400,

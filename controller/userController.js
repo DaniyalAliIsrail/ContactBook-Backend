@@ -2,7 +2,6 @@ import CrudModel from "../model/crudSchema.js";
 import UserModel from "../model/userSchema.js";
 import fileUploader from "../utils/fileUploader.js";
 
-
 const dashboardValidate = async (req, res) => {
 // console.log(req.verifyUserId)
   const userValid = await UserModel.findOne({ _id: req.verifyuserId });
@@ -12,8 +11,6 @@ const dashboardValidate = async (req, res) => {
 const postController = async (req, res) => {
     try {
         const image = req.files[0].path;
-        // console.log('imagefiles', image);
-        console.log("post controller id",req.verifyUserId)
 
         const { name, email, contact } = req.body;
         if (!name || !email || !contact) {
@@ -32,8 +29,6 @@ const postController = async (req, res) => {
                 contact: contact,
                 imageUrl: imageurl.secure_url,
                 verifyUserId:req.verifyuserId
-               
-
             };
             // console.log(objToSend);
             const userPost = new CrudModel(objToSend);

@@ -10,7 +10,6 @@ router.post("/api/signup", SignupController);
 router.post("/api/login", LoginController);
 
 router.get("/api/dashboardvalidate",authMiddelwear,dashboardValidate);
-router.post("/api/posts",[upload.any("image"),authMiddelwear],postController)
-
+router.post("/api/posts",[authMiddelwear,upload.any("image")],postController)
 
 export default router;
