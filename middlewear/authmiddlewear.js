@@ -7,7 +7,7 @@ const authMiddelwear = async (req,res,next)=>{
         const verifyToken = jwt.verify(token,"mom");
         const verifyuserdata = await UserModel.findOne({email:verifyToken.email})
         const verifyuserId = verifyuserdata._id
-        console.log("verifyId",verifyuserId);
+        // console.log("verifyId",verifyuserId);
         req.verifyuserId = verifyuserId
         req.userData = verifyuserdata;  
         // console.log("verifyId",verifyuserId);

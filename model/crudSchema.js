@@ -9,7 +9,7 @@ const schema = new mongoose.Schema({
         required:true,
     },
     contact: {
-        type: Number,
+        type: String,
         required: true,
       },
       imageUrl: {
@@ -17,6 +17,9 @@ const schema = new mongoose.Schema({
         required: true,
       },
       verifyUserId: {
+        type: String,
+      },
+      times:{ 
         type: String,
       }
 },
