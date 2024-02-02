@@ -43,7 +43,9 @@ const postController = async (req, res) => {
         verifyUserId: req.verifyuserId,
         times:times
       };
+
       // console.log(objToSend);
+
       const userPost = new CrudModel(objToSend);
       const CrudData = await userPost.save();
 
@@ -132,76 +134,53 @@ const updatePostController = async (req, res) => {
   }
 };
 
-// import multer from 'multer';
-// import cloudinary from 'cloudinary';
-// import { v2 as cloudinaryV2 } from 'cloudinary';
-// import fs from 'fs';
+const searchPostsController = async (req, res) => {
+  try {
+    const verifyUserId = req.verifyuserId;
+    const { search } = req.query;
 
-// // Assuming you have configured Cloudinary before using it.
-// // Make sure to set up the Cloudinary configuration with your credentials.
+    if (!search) {
+      return res.status(400).json({
+        status: 400,
+        message: "Search query parameter is required",
+      });
+    }
 
-// // Multer configuration for image upload
-// const storage = multer.memoryStorage();
-// const upload = multer({ storage: storage });
+    const query = {
+      verifyUserId,
+      $or: [
+        { name: { $regex: new RegExp(search, 'i') } },
 
-// const updatePostController = async (req, res) => {
-//   try {
-//     const id = req.params.id;
-//     const { name, email, contact } = req.body;
-    
-//     // Assuming you have a field in the schema named imageUrl to store the Cloudinary URL
-//     let imageUrl;
+        { email: { $regex: new RegExp(search, 'i') } },
 
-//     // Check if a new image is being uploaded
-//     if (req.file) {
-//       // Upload the image to Cloudinary
-//       const result = await cloudinaryV2.uploader.upload(req.file.buffer.toString('base64'));
-//       imageUrl = result.secure_url;
-//     }
+        { contact: { $regex: new RegExp(search, 'i') } },
 
-//     // Update fields including the imageUrl
-//     const updateFields = { name, email, contact, imageUrl };
+        { times: { $regex: new RegExp(search, 'i') } },
 
-//     // Find and update the document
-//     const updatePost = await CrudModel.findByIdAndUpdate({ _id: id }, updateFields, { new: true });
+        { imageUrl: { $regex: new RegExp(search, 'i') } },
 
-//     if (!updatePost) {
-//       return res.status(404).json({
-//         status: 404,
-//         message: "Post not found",
-//         data: null,
-//       });
-//     }
+        
+      ],
+    };
 
-//     // If a new image was uploaded, delete the old image from Cloudinary
-//     if (imageUrl && updatePost.imageUrl) {
-//       const publicId = updatePost.imageUrl.split('/').pop().split('.')[0];
-//       cloudinaryV2.uploader.destroy(publicId);
-//     }
+    const searchResults = await CrudModel.find(query);
 
-//     return res.status(200).json({
-//       status: 200,
-//       message: "Update successful",
-//       data: updatePost,
-//     });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({
-//       status: 500,
-//       message: "Internal server error",
-//       data: null,
-//     });
-//   }
-// };
-
-// export default upload.single('image')(updatePostController);
-
-
+    res.status(200).json({
+      status: 200,
+      message: "Search successful",
+      data: searchResults,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ status: 500, message: "Internal server error" });
+  }
+};
 
 export {
   dashboardValidate,
   postController,
   allPostController,
   delPostController,
-  updatePostController
+  updatePostController,
+  searchPostsController
 };
