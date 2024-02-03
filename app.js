@@ -2,8 +2,8 @@ import  express  from "express";
 import "./db/connect.js"
 import cors from "cors";
 import router from "./routes/index.js";
-import dotenv from 'dotenv';
-dotenv.config();
+// import dotenv from "./env"
+// dotenv.config();
 import { v2 as cloudinary } from 'cloudinary';
 
 
