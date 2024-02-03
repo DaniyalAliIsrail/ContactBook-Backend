@@ -80,7 +80,8 @@ const LoginController = async (req, res) => {
       });
     }
     // create token
-    let token = jwt.sign({ email: userExist.email },"mom");
+    console.log(process.env.SEC_KEY);
+    let token = jwt.sign({ email: userExist.email },process.env.SEC_KEY);
     return res.status(200).json({
       status: 200,
       message: "User logged in successfully",
