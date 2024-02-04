@@ -9,9 +9,8 @@ env.config()
 const PORT = process.env.PORT || 8000;
 const app = express();
 
+app.use(cors());
 app.use(express.json());
-// app.use(cors());
-app.use(cors({ origin: '*' }));
 app.use(router)
 
 cloudinary.config({
@@ -19,13 +18,6 @@ cloudinary.config({
   api_key:process.env.API_K,
   api_secret:process.env.API_SECRET,
 });
-// console.log(process.env.CLOUD_N);
-// console.log(process.env.API_K);
-// console.log(process.env.API_SECRET);
-// console.log(process.env.DB_URI);
-
-
-
 
 mongoose.connect(process.env.DB_URI);
 mongoose.connection.on("connected", () =>
@@ -36,3 +28,5 @@ mongoose.connection.on("error", (err) => console.log("Error In MongoDb", err));
 app.listen(PORT, () => {
     console.log(`Server Is Running On localhost:${PORT}`);
   });
+// app.use(cors({ origin: '*' }));
+// app.use(cors({ origin: 'http://localhost:5173' }));
