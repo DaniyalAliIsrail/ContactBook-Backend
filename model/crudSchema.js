@@ -14,6 +14,7 @@ const schema = new mongoose.Schema({
       },
       imageUrl: {
         type: String,
+        required: true,
       },
       verifyUserId: {
         type: String,
