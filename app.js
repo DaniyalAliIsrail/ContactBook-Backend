@@ -18,6 +18,13 @@ cloudinary.config({
   api_key:process.env.API_K,
   api_secret:process.env.API_SECRET,
 });
+console.log(process.env.CLOUD_N);
+console.log(process.env.API_K);
+console.log(process.env.API_SECRET);
+console.log(process.env.DB_URI);
+
+
+
 
 mongoose.connect(process.env.DB_URI);
 mongoose.connection.on("connected", () =>
