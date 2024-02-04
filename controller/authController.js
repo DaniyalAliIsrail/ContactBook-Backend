@@ -3,9 +3,6 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
        
 
-// const expiresInOneWeek = 60 * 60 * 24 * 7; 
-// const SECRETKEY = process.env.PRIVATE_KEY;
-
 const SignupController = async (req, res) => {
   const { fname, email, password, cpassword } = req.body;
 
