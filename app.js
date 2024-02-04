@@ -14,9 +14,9 @@ app.use(cors());
 app.use(router)
 
 cloudinary.config({
-  cloud_name:'dih6gzzhk',
-  api_key:'553388149965484',
-  api_secret:'0umYW6KOYp9ZO4_1ZteptavElNY',
+  cloud_name:process.env.CLOUD_N,
+  api_key:process.env.API_K,
+  api_secret:process.env.API_SECRET,
 });
 
 mongoose.connect(process.env.DB_URI);
