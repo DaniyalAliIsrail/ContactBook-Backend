@@ -1,6 +1,6 @@
 import CrudModel from "../model/crudSchema.js";
 import UserModel from "../model/userSchema.js";
-import fileUploader from "../utils/fileUploader.js";
+// import fileUploader from "../utils/fileUploader.js";
 // import fileUploader from "./path/to/fileUploader.js";
 
 const dashboardValidate = async (req, res) => {
@@ -15,7 +15,7 @@ const dashboardValidate = async (req, res) => {
 
 const postController = async (req, res) => {
   try {
-    const image = req.files[0].path;
+    // const image = req.files[0].path;
 
     const { name, email, contact } = req.body;
     if (!name || !email || !contact) {
@@ -27,7 +27,7 @@ const postController = async (req, res) => {
     }
 
     try {
-      const imageurl = await fileUploader(image);
+      // const imageurl = await fileUploader(image);
       const times = new Date().toLocaleString('en-US', {
         day: 'numeric',
         year: 'numeric',
@@ -40,7 +40,7 @@ const postController = async (req, res) => {
         name: name,
         email: email,
         contact: contact,
-        imageUrl: imageurl.secure_url,
+        // imageUrl: imageurl.secure_url,
         verifyUserId: req.verifyuserId,
         times:times
       };
