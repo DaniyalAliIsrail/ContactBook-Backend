@@ -8,9 +8,9 @@ const fileUploader = (e) => {
         cloudinary.uploader.upload(e, (error, data) => {
             if (data) {
                 fs.unlinkSync(e);
-                // console.log(data);
+                console.log(data);
                 const url = data.secure_url;
-                // console.log(url);
+                console.log(url);
                 resolve(data);
             } else {
                 console.error('Error uploading file to Cloudinary:', error);

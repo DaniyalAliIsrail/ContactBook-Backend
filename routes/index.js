@@ -10,7 +10,7 @@ router.post("/api/signup", SignupController);
 router.post("/api/login", LoginController);
 
 router.get("/api/dashboardvalidate",authMiddelwear,dashboardValidate);
-router.post("/api/posts",[authMiddelwear],postController);
+router.post("/api/posts",[authMiddelwear,upload.any(image)],postController);
 router.get("/api/allpost",authMiddelwear,allPostController);
 router.delete("/api/delpost/:id",authMiddelwear,delPostController);
 router.put("/api/updatepost/:id",updatePostController);
