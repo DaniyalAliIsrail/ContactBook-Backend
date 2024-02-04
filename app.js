@@ -33,5 +33,3 @@ mongoose.connection.on("error", (err) => console.log("Error In MongoDb", err));
 app.listen(PORT, () => {
     console.log(`Server Is Running On localhost:${PORT}`);
   });
-// app.use(cors({ origin: '*' }));
-// app.use(cors({ origin: 'http://localhost:5173' }));
