@@ -1,6 +1,7 @@
 import CrudModel from "../model/crudSchema.js";
 import UserModel from "../model/userSchema.js";
 import fileUploader from "../utils/fileUploader.js";
+// import fileUploader from "./path/to/fileUploader.js";
 
 const dashboardValidate = async (req, res) => {
   try {
