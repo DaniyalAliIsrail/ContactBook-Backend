@@ -13,9 +13,6 @@ const dashboardValidate = async (req, res) => {
 };
 
 const postController = async (req, res) => {
-
-  res.json({msg:"ok"});
-  return
   try {
     const image = req.files[0].path;
 
