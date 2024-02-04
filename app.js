@@ -14,6 +14,10 @@ app.use(cors());
 app.use(express.json());
 app.use(router)
 
+app.post('/test',(req,res)=>{
+  res.json({msg:"ok"})
+})
+
 cloudinary.config({
   cloud_name:process.env.CLOUD_N,
   api_key:process.env.API_K,
