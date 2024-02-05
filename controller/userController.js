@@ -158,6 +158,7 @@ const postController = async (req, res) => {
     res.status(200).json({ status: 200, data: CrudData });
   } catch (error) {
     res.send(error);
+    console.log(error);
   }
 };
 
