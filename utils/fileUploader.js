@@ -1,44 +1,55 @@
-import { v2 as cloudinary } from 'cloudinary';
-import fs from 'fs';
+import { v2 as cloudinary } from "cloudinary";
+import fs from "fs";
 
-const fileUploader = (e) => {
-    // console.log(e);
-    return new Promise((resolve, reject) => {
-        cloudinary.uploader.upload(e, (error, data) => {
-            if (data) {
-                fs.unlinkSync(e);
-                console.log(data);
-                const url = data.secure_url;
-                console.log(url);
-                resolve(data);
-            } else {
-                console.error('Error uploading file to Cloudinary:', error);
-                reject(error);
-            }
-        });
-    });
+const fileUploader = async (e) => {
+
+
+
+
+
+
+  // console.log(e);
+
+
+//   console.log(e, "aahahha")
+//   return
+    let Data;
+    // return e
+    await cloudinary.uploader.upload(e, async (error, data) => {
+        if (data) {
+            fs.unlinkSync(e);
+            console.log(data)
+            const url = await data.secure_url
+            console.log(url);
+            Data = data
+        }
+        
+       
+      });
+     return Data
+
+
+
+
+
+
+//   return new Promise((resolve, reject) => {
+//     cloudinary.uploader.upload(e, (error, data) => {
+//       if (data) {
+//         fs.unlinkSync(e);
+//         console.log(data);
+//         const url = data.secure_url;
+//         console.log(url);
+//         resolve(data);
+//       } else {
+//         console.error("Error uploading file to Cloudinary:", error);
+//         reject(error);
+//       }
+//     });
+//   });
 };
 
 export default fileUploader;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // 2
 
@@ -53,12 +64,11 @@ export default fileUploader;
 //             const url = await data.secure_url
 //             Data = data
 //         }
-     
+
 //       });
 //      return Data
 // }
 // export default fileUploader;
-
 
 // 3
 

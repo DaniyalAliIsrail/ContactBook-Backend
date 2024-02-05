@@ -14,10 +14,10 @@ const schema = new mongoose.Schema({
       },
       imageUrl: {
         type: String,
-        required: true,
+        required:true,
       },
       verifyUserId: {
-        type: String,
+        type:String,
       },
       times:{ 
         type: String,

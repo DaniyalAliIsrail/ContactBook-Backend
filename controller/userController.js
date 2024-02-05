@@ -16,6 +16,12 @@ const postController = async (req, res) => {
   try {
     const image = req.files[0].path;
 
+    // const imageurl = await fileUploader(image);
+
+
+    console.log(image);
+
+    // return
     const { name, email, contact } = req.body;
     if (!name || !email || !contact) {
       return res.status(400).json({
@@ -71,6 +77,10 @@ const postController = async (req, res) => {
     });
   }
 };
+
+// const postController = async (req,res)=>{
+
+// }
 
 const allPostController = async (req, res) => {
   try {
