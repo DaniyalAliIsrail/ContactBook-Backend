@@ -86,6 +86,9 @@ const postController = async (req, res) => {
     bodyData = req.body;
 
     const image = req.files[0].path;
+    //validation nhy lagana hay
+    const imageurl = await fileUploader(image);
+
     console.log(image);
     console.log(bodyData);
 
@@ -98,8 +101,6 @@ const postController = async (req, res) => {
       });
       return;
     }
-    //validation nhy lagana hay
-    const imageurl = await fileUploader(image);
     // return console.log(imageurl)
     const objtosend = {
       name: name,
@@ -110,8 +111,9 @@ const postController = async (req, res) => {
       times: times,
     };
     const crudOperation = new CrudModel(objtosend);
-    const crudData = await crudOperation.save();
-    res.status(200).json({ status: 200,  data: crudData});
+    const CrudData = await crudOperation.save();
+    
+    res.status(200).json({ status: 200,  data: CrudData});
   } catch (error) {
     res.send(error);
   }
