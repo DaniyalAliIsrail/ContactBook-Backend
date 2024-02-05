@@ -141,7 +141,13 @@ const postController = async (req, res) => {
     }
 
     // Define the 'times' variable (replace 0 with the actual value)
-    const times = 0;
+    const times = new Date().toLocaleString('en-US', {
+      day: 'numeric',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
 
     const objtosend = {
       name: name,
