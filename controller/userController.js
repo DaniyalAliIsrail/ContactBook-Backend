@@ -12,86 +12,119 @@ const dashboardValidate = async (req, res) => {
   }
 };
 
-const postController = async (req, res) => {
-  try {
-    const image = req.files[0].path;
+// const postController = async (req, res) => {
+//   try {
+//     const image = req.files[0].path;
 
-    // const imageurl = await fileUploader(image);
+//     // const imageurl = await fileUploader(image);
 
+//     console.log(image);
 
-    console.log(image);
+//     // return
+//     const { name, email, contact } = req.body;
+//     if (!name || !email || !contact) {
+//       return res.status(400).json({
+//         status: 400,
+//         message: "Please fill all the fields",
+//         data: null,
+//       });
+//     }
 
-    // return
-    const { name, email, contact } = req.body;
-    if (!name || !email || !contact) {
-      return res.status(400).json({
-        status: 400,
-        message: "Please fill all the fields",
-        data: null,
-      });
-    }
+//     try {
+//       const imageurl = await fileUploader(image);
+//       const times = new Date().toLocaleString('en-US', {
+//         day: 'numeric',
+//         year: 'numeric',
+//         hour: '2-digit',
+//         minute: '2-digit',
+//         second: '2-digit'
+//       });
 
-    try {
-      const imageurl = await fileUploader(image);
-      const times = new Date().toLocaleString('en-US', {
-        day: 'numeric',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      });
-      
-      const objToSend = {
-        name: name,
-        email: email,
-        contact: contact,
-        imageUrl: imageurl.secure_url,
-        verifyUserId: req.verifyuserId,
-        times:times
-      };
+//       const objToSend = {
+//         name: name,
+//         email: email,
+//         contact: contact,
+//         imageUrl: imageurl.secure_url,
+//         verifyUserId: req.verifyuserId,
+//         times:times
+//       };
 
-      // console.log(objToSend);
+//       // console.log(objToSend);
 
-      const userPost = new CrudModel(objToSend);
-      const CrudData = await userPost.save();
+//       const userPost = new CrudModel(objToSend);
+//       const CrudData = await userPost.save();
 
-      res.status(200).json({
-        status: 200,
-        message: "Post successfully",
-        data: CrudData,
-      });
-    } catch (uploadError) {
-      console.error("Error in file upload:", uploadError);
-      res.status(400).json({
-        status: 400,
-        message: "Internal server error during file upload",
-        data: null,
-      });
-    }
-  } catch (err) {
-    console.log(err);
-    res.status(400).json({
-      status: 400,
-      message: "Invalid message",
-      data: null,
-    });
-  }
-};
+//       res.status(200).json({
+//         status: 200,
+//         message: "Post successfully",
+//         data: CrudData,
+//       });
+//     } catch (uploadError) {
+//       console.error("Error in file upload:", uploadError);
+//       res.status(400).json({
+//         status: 400,
+//         message: "Internal server error during file upload",
+//         data: null,
+//       });
+//     }
+//   } catch (err) {
+//     console.log(err);
+//     res.status(400).json({
+//       status: 400,
+//       message: "Invalid message",
+//       data: null,
+//     });
+//   }
+// };
 
 // const postController = async (req,res)=>{
 
 // }
 
+const postController = async (req, res) => {
+  try {
+    bodyData = req.body;
+
+    const image = req.files[0].path;
+    console.log(image);
+    console.log(bodyData);
+
+    const { name, email, contact } = bodyData;
+    if (!name || !email || !contact) {
+      res.json({
+        status: false,
+        message: "Required Fields Are Missing!",
+        data: null,
+      });
+      return;
+    }
+    //validation nhy lagana hay
+    const imageurl = await fileUploader(image);
+    // return console.log(imageurl)
+    const objtosend = {
+      name: name,
+      email: email,
+      contact: contact,
+      imageUrl: imageurl.secure_url,
+      verifyUserId: req.verifyuserId,
+      times: times,
+    };
+    const crudOperation = new CrudModel(objtosend);
+    const crudData = await crudOperation.save();
+    res.status(200).json({ status: 200,  data: crudData});
+  } catch (error) {
+    res.send(error);
+  }
+};
+
 const allPostController = async (req, res) => {
   try {
     const allPost = await CrudModel.find({ verifyUserId: req.verifyuserId });
-    res
-      .status(200)
-      .json({
-        status: 200,
-        message: "Get All post successfully",
-        Data: allPost,
-      });
+    res.status(200).json({
+      status: 200,
+      message: "Get All post successfully",
+      Data: allPost,
+    });
   } catch (err) {
     // console.log(err);
     res.status(400).json({ status: 400, message: "No Post Find" });
@@ -128,12 +161,16 @@ const updatePostController = async (req, res) => {
       });
     }
     const updateFields = { name, email, contact };
-    const updatePost = await CrudModel.findByIdAndUpdate({ _id: id }, updateFields ,{new:true});
+    const updatePost = await CrudModel.findByIdAndUpdate(
+      { _id: id },
+      updateFields,
+      { new: true }
+    );
     return res.status(200).json({
-        status:200,
-        message:"update post controller",
-        data:updatePost
-    })
+      status: 200,
+      message: "update post controller",
+      data: updatePost,
+    });
   } catch (err) {
     console.log(err);
     res.status(400).json({
@@ -159,17 +196,15 @@ const searchPostsController = async (req, res) => {
     const query = {
       verifyUserId,
       $or: [
-        { name: { $regex: new RegExp(search, 'i') } },
+        { name: { $regex: new RegExp(search, "i") } },
 
-        { email: { $regex: new RegExp(search, 'i') } },
+        { email: { $regex: new RegExp(search, "i") } },
 
-        { contact: { $regex: new RegExp(search, 'i') } },
+        { contact: { $regex: new RegExp(search, "i") } },
 
-        { times: { $regex: new RegExp(search, 'i') } },
+        { times: { $regex: new RegExp(search, "i") } },
 
-        { imageUrl: { $regex: new RegExp(search, 'i') } },
-
-        
+        { imageUrl: { $regex: new RegExp(search, "i") } },
       ],
     };
 
@@ -192,5 +227,5 @@ export {
   allPostController,
   delPostController,
   updatePostController,
-  searchPostsController
-};
+  searchPostsController,
+}
