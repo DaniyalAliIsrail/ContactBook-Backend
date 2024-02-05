@@ -21,12 +21,19 @@ cloudinary.config({
   api_secret:process.env.API_SECRET,
 });
 
-mongoose.connect(process.env.DB_URI);
+// mongoose.connect(process.env.DB_URI);
+// mongoose.connection.on("connected", () =>
+//   console.log("My MongoDB Is Connected")
+// );
+// mongoose.connection.on("error", (err) => console.log("Error In MongoDb", err));
+  
+const DB_URL = process.env.DB_URI;
+mongoose.connect(DB_URL);
 mongoose.connection.on("connected", () =>
   console.log("My MongoDB Is Connected")
 );
 mongoose.connection.on("error", (err) => console.log("Error In MongoDb", err));
-  
+
 app.listen(PORT, () => {
     console.log(`Server Is Running On localhost:${PORT}`);
   });
