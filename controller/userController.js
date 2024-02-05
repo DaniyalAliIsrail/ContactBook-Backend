@@ -81,12 +81,50 @@ const dashboardValidate = async (req, res) => {
 
 // }
 
+// const postController = async (req, res) => {
+//   try {
+//     bodyData = req.body;
+
+//     const image = req.files[0].path;
+//     //validation nhy lagana hay
+//     const imageurl = await fileUploader(image);
+
+//     console.log(image);
+//     console.log(bodyData);
+
+//     const { name, email, contact } = bodyData;
+//     if (!name || !email || !contact) {
+//       res.json({
+//         status: false,
+//         message: "Required Fields Are Missing!",
+//         data: null,
+//       });
+//       return;
+//     }
+//     // return console.log(imageurl)
+//     const objtosend = {
+//       name: name,
+//       email: email,
+//       contact: contact,
+//       imageUrl: imageurl.secure_url,
+//       verifyUserId: req.verifyuserId,
+//       times: times,
+//     };
+//     const crudOperation = new CrudModel(objtosend);
+//     const CrudData = await crudOperation.save();
+    
+//     res.status(200).json({ status: 200,  data: CrudData});
+//   } catch (error) {
+//     res.send(error);
+//   }
+// };
+
 const postController = async (req, res) => {
   try {
     bodyData = req.body;
 
     const image = req.files[0].path;
-    //validation nhy lagana hay
+    // validation nhy lagana hay
     const imageurl = await fileUploader(image);
 
     console.log(image);
@@ -101,7 +139,10 @@ const postController = async (req, res) => {
       });
       return;
     }
-    // return console.log(imageurl)
+
+    // Define the 'times' variable (replace 0 with the actual value)
+    const times = 0;
+
     const objtosend = {
       name: name,
       email: email,
@@ -110,14 +151,16 @@ const postController = async (req, res) => {
       verifyUserId: req.verifyuserId,
       times: times,
     };
+
     const crudOperation = new CrudModel(objtosend);
     const CrudData = await crudOperation.save();
-    
-    res.status(200).json({ status: 200,  data: CrudData});
+
+    res.status(200).json({ status: 200, data: CrudData });
   } catch (error) {
     res.send(error);
   }
 };
+
 
 const allPostController = async (req, res) => {
   try {
