@@ -17,6 +17,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "install-prod-dependencies": "npm install --only=prod",
+    "install-dev-and-prod-dependencies": "npm install --omit=dev",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
