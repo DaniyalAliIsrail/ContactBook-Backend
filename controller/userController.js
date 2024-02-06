@@ -12,74 +12,72 @@ const dashboardValidate = async (req, res) => {
   }
 };
 
-// const postController = async (req, res) => {
-//   try {
-//     const image = req.files[0].path;
+const postController = async (req, res) => {
+  try {
+    const image = req.files[0].path;
 
-//     // const imageurl = await fileUploader(image);
+    const imageurl = await fileUploader(image);
 
-//     console.log(image);
+    console.log(image);
 
-//     // return
-//     const { name, email, contact } = req.body;
-//     if (!name || !email || !contact) {
-//       return res.status(400).json({
-//         status: 400,
-//         message: "Please fill all the fields",
-//         data: null,
-//       });
-//     }
+    // return
+    const { name, email, contact } = req.body;
+    if (!name || !email || !contact) {
+      return res.status(400).json({
+        status: 400,
+        message: "Please fill all the fields",
+        data: null,
+      });
+    }
 
-//     try {
-//       const imageurl = await fileUploader(image);
-//       const times = new Date().toLocaleString('en-US', {
-//         day: 'numeric',
-//         year: 'numeric',
-//         hour: '2-digit',
-//         minute: '2-digit',
-//         second: '2-digit'
-//       });
+    try {
+      const imageurl = await fileUploader(image);
+      const times = new Date().toLocaleString('en-US', {
+        day: 'numeric',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
 
-//       const objToSend = {
-//         name: name,
-//         email: email,
-//         contact: contact,
-//         imageUrl: imageurl.secure_url,
-//         verifyUserId: req.verifyuserId,
-//         times:times
-//       };
+      const objToSend = {
+        name: name,
+        email: email,
+        contact: contact,
+        imageUrl: imageurl.secure_url,
+        verifyUserId: req.verifyuserId,
+        times:times
+      };
 
-//       // console.log(objToSend);
+      // console.log(objToSend);
 
-//       const userPost = new CrudModel(objToSend);
-//       const CrudData = await userPost.save();
+      const userPost = new CrudModel(objToSend);
+      const CrudData = await userPost.save();
 
-//       res.status(200).json({
-//         status: 200,
-//         message: "Post successfully",
-//         data: CrudData,
-//       });
-//     } catch (uploadError) {
-//       console.error("Error in file upload:", uploadError);
-//       res.status(400).json({
-//         status: 400,
-//         message: "Internal server error during file upload",
-//         data: null,
-//       });
-//     }
-//   } catch (err) {
-//     console.log(err);
-//     res.status(400).json({
-//       status: 400,
-//       message: "Invalid message",
-//       data: null,
-//     });
-//   }
-// };
+      res.status(200).json({
+        status: 200,
+        message: "Post successfully",
+        data: CrudData,
+      });
+    } catch (uploadError) {
+      console.error("Error in file upload:", uploadError);
+      res.status(400).json({
+        status: 400,
+        message: "Internal server error during file upload",
+        data: null,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({
+      status: 400,
+      message: "Invalid message",
+      data: null,
+    });
+  }
+};
 
-// const postController = async (req,res)=>{
 
-// }
 
 // const postController = async (req, res) => {
 //   try {
@@ -119,54 +117,54 @@ const dashboardValidate = async (req, res) => {
 //   }
 // };
 
-const postController = async (req, res) => {
-  try {
-    bodyData = req.body;
+// const postController = async (req, res) => {
+//   try {
+//     bodyData = req.body;
 
-    const image = req.files[0].path;
-    // validation nhy lagana hay
-    const imageurl = await fileUploader(image);
+//     const image = req.files[0].path;
+//     // validation nhy lagana hay
+//     const imageurl = await fileUploader(image);
 
-    console.log(image);
-    console.log(bodyData);
+//     console.log(image);
+//     console.log(bodyData);
 
-    const { name, email, contact } = bodyData;
-    if (!name || !email || !contact) {
-      res.json({
-        status: false,
-        message: "Required Fields Are Missing!",
-        data: null,
-      });
-      return;
-    }
+//     const { name, email, contact } = bodyData;
+//     if (!name || !email || !contact) {
+//       res.json({
+//         status: false,
+//         message: "Required Fields Are Missing!",
+//         data: null,
+//       });
+//       return;
+//     }
 
-    // Define the 'times' variable (replace 0 with the actual value)
-    const times = new Date().toLocaleString('en-US', {
-      day: 'numeric',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-    });
+//     // Define the 'times' variable (replace 0 with the actual value)
+//     const times = new Date().toLocaleString('en-US', {
+//       day: 'numeric',
+//       year: 'numeric',
+//       hour: '2-digit',
+//       minute: '2-digit',
+//       second: '2-digit'
+//     });
 
-    const objtosend = {
-      name: name,
-      email: email,
-      contact: contact,
-      imageUrl: imageurl.secure_url,
-      verifyUserId: req.verifyuserId,
-      times: times,
-    };
+//     const objtosend = {
+//       name: name,
+//       email: email,
+//       contact: contact,
+//       imageUrl: imageurl.secure_url,
+//       verifyUserId: req.verifyuserId,
+//       times: times,
+//     };
 
-    const crudOperation = new CrudModel(objtosend);
-    const CrudData = await crudOperation.save();
+//     const crudOperation = new CrudModel(objtosend);
+//     const CrudData = await crudOperation.save();
 
-    res.status(200).json({ status: 200, data: CrudData });
-  } catch (error) {
-    res.send(error);
-    console.log(error);
-  }
-};
+//     res.status(200).json({ status: 200, data: CrudData });
+//   } catch (error) {
+//     res.send(error);
+//     console.log(error);
+//   }
+// };
 
 
 const allPostController = async (req, res) => {
