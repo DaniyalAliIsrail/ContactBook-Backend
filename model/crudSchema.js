@@ -19,9 +19,9 @@ const schema = new mongoose.Schema({
       verifyUserId: {
         type:String,
       },
-      // times:{ 
-      //   type: String,
-      // }
+       times:{ 
+         type: String,
+      }
 },
 { timestamps: true }
 );
