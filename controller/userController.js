@@ -46,10 +46,10 @@ const postController = async (req, res) => {
 
     const crudOperation = new CrudModel(objtosend);
     const CrudData = await crudOperation.save();
-    return res.status(200).json({ status: 200, data: CrudData });
+    return res.status(200).json({ status: 200,  data: CrudData });
 
   } catch (error) {
-    console.error("Error in postController:", error);
+    // console.error("Error in postController:", error);
     return res.status(400).json({ status: 400, message: "Internal Server Error" });
   }
 };
@@ -111,7 +111,7 @@ const updatePostController = async (req, res) => {
       data: updatePost,
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(400).json({
       status: 400,
       message: "Internal server error",
@@ -155,7 +155,7 @@ const searchPostsController = async (req, res) => {
       data: searchResults,
     });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.status(500).json({ status: 500, message: "Internal server error" });
   }
 };
