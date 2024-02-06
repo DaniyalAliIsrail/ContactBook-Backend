@@ -16,7 +16,7 @@ const postController = async (req, res) => {
   try {
     const image = req.files[0].path;
 
-    const imageurl = await fileUploader(image);
+    const imageFile = await fileUploader(image);
 
     console.log(image);
 
@@ -44,7 +44,7 @@ const postController = async (req, res) => {
         name: name,
         email: email,
         contact: contact,
-        imageUrl: imageurl.secure_url,
+        imageUrl: imageFile.secure_url,
         verifyUserId: req.verifyuserId,
         times:times
       };
