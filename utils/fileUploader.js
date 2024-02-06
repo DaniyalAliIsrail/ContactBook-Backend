@@ -1,27 +1,7 @@
-import { v2 as cloudinary } from "cloudinary";
-import fs from "fs";
+// import { v2 as cloudinary } from "cloudinary";
+// import fs from "fs";
 
-const fileUploader = async (e) => {
-    let Data;
-    // return e
-    await cloudinary.uploader.upload(e, async (error, data) => {
-        if (data) {
-            fs.unlinkSync(e);
-            console.log(data)
-            const url = await data.secure_url
-            console.log(url);
-            Data = data
-        }
-      });
-     return Data
-};
-
-export default fileUploader;
-
-// 2
-
-// const fileUploader = async (e)=>{
-//     console.log(e)
+// const fileUploader = async (e) => {
 //     let Data;
 //     // return e
 //     await cloudinary.uploader.upload(e, async (error, data) => {
@@ -29,34 +9,30 @@ export default fileUploader;
 //             fs.unlinkSync(e);
 //             console.log(data)
 //             const url = await data.secure_url
+//             console.log(url);
 //             Data = data
 //         }
-
 //       });
 //      return Data
-// }
-// export default fileUploader;
-
-// 3
-
-// import util from 'util';
-// import cloudinary from 'cloudinary'; // Import cloudinary
-// import fs from 'fs'; // Import fs module
-
-// const cloudinaryUpload = util.promisify(cloudinary.uploader.upload);
-
-// const fileUploader = async (e) => {
-//     console.log(e);
-
-//     try {
-//         const data = await cloudinaryUpload(e);
-//         fs.unlinkSync(e);
-//         console.log(data);
-//         return data;
-//     } catch (error) {
-//         console.error(error);
-//         throw error; // Re-throw the error for handling in the calling code if necessary
-//     }
 // };
+
 // export default fileUploader;
 
+
+// fileUploader.js
+import { v2 as cloudinary } from "cloudinary";
+import fs from "fs";
+
+const fileUploader = async (filePath) => {
+    try {
+        const data = await cloudinary.uploader.upload(filePath);
+        // Delete the file after successful upload
+        fs.unlinkSync(filePath);
+        return data;
+    } catch (error) {
+        console.error("Error uploading file:", error);
+        throw error; // Re-throw the error for handling in the caller function
+    }
+};
+
+export default fileUploader;

@@ -12,16 +12,16 @@ const schema = new mongoose.Schema({
         type: String,
         required: true,
       },
-      imageUrl: {
+      imageFile: {
         type: String,
         required:true,
       },
       verifyUserId: {
         type:String,
       },
-      times:{ 
-        type: String,
-      }
+      // times:{ 
+      //   type: String,
+      // }
 },
 { timestamps: true }
 );
