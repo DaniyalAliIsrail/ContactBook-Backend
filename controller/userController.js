@@ -123,12 +123,12 @@ const postController = async (req, res) => {
 
     const image = req.files[0].path;
     // validation nhy lagana hay
-    const imageurl = await fileUploader(image);
 
     console.log(image);
     console.log(bodyData);
 
     const { name, email, contact } = bodyData;
+
     if (!name || !email || !contact) {
       res.json({
         status: false,
@@ -137,8 +137,8 @@ const postController = async (req, res) => {
       });
       return;
     }
+    const imageurl = await fileUploader(image);
 
-    // Define the 'times' variable (replace 0 with the actual value)
     const times = new Date().toLocaleString('en-US', {
       day: 'numeric',
       year: 'numeric',
