@@ -19,23 +19,12 @@ cloudinary.config({
   api_secret: '0umYW6KOYp9ZO4_1ZteptavElNY'
 });
 
-// cloudinary.config({
-//   cloud_name:process.env.CLOUD_N,
-//   api_key:process.env.API_K,
-//   api_secret:process.env.API_SECRET,
-// });
 
-// mongoose.connect(process.env.DB_URI);
-// mongoose.connection.on("connected", () =>
-//   console.log("My MongoDB Is Connected")
-// );
-// mongoose.connection.on("error", (err) => console.log("Error In MongoDb", err));
   
 const DB_URL = process.env.DB_URI;
 mongoose.connect(DB_URL);
 mongoose.connection.on("connected", () =>
-  console.log("My MongoDB Is Connected")
-);
+  console.log("My MongoDB Is Connected"));
 mongoose.connection.on("error", (err) => console.log("Error In MongoDb", err));
 
 app.listen(PORT, () => {

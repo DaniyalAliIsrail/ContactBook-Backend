@@ -158,7 +158,6 @@ const postController = async (req, res) => {
 
     const crudOperation = new CrudModel(objtosend);
     const CrudData = await crudOperation.save();
-
     res.status(200).json({ status: 200, data: CrudData });
   } catch (error) {
     res.send(error);
