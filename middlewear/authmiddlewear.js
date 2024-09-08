@@ -12,6 +12,7 @@ const authMiddelwear = async (req,res,next)=>{
         req.verifyuserId = verifyuserId
         req.userData = verifyuserdata;  
         next();
+        
     }catch(err){
         console.log(err.message);
         res.status(401).json({
