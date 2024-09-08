@@ -15,7 +15,7 @@
   },
   "name": "contactbookbackend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "install-prod-dependencies": "npm install --only=prod",
     "install-dev-and-prod-dependencies": "npm install --omit=dev",
@@ -27,3 +27,4 @@
   "license": "ISC",
   "description": ""
 }
+
