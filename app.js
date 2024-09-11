@@ -25,17 +25,12 @@ cloudinary.config({
 });
 
 const DB_URL = process.env.DB_URI;
-// mongoose.connect(DB_URL);
+mongoose.connect(DB_URL);
 mongoose.connection.on("connected", () =>
   console.log("My MongoDB Is Connected"));
 mongoose.connection.on("error", (err) => console.log("Error In MongoDb", err));
 
-// mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-//   .then(() => console.log("MongoDB Connected"))
-//   .catch((err) => {
-//     console.error("MongoDB connection error:", err);
-//     // process.exit(1);
-//   });
+
 
 
 app.listen(PORT, () => {
