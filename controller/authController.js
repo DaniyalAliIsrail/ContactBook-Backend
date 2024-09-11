@@ -53,7 +53,6 @@ const SignupController = async (req, res) => {
   }
 };
 
-
 const LoginController = async (req, res) => {
   try {
   const { email, password } = req.body;
@@ -72,7 +71,7 @@ const LoginController = async (req, res) => {
     if (!comparePassword) {
       return res.status(400).json({
         status: 400,
-        message: "Invalid credental",
+        message: "Invalid credential",
         data: "null",
       });
     }
@@ -85,7 +84,6 @@ const LoginController = async (req, res) => {
       data: userExist,
       token: token,
     });
-    
   } catch (error) {
     console.log(error);
     return res.status(400).json({
