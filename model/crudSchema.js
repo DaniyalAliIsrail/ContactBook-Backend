@@ -28,3 +28,6 @@ const schema = new mongoose.Schema({
 
 const CrudModel = mongoose.model("crud", schema);
 export default CrudModel;
+
+
+
