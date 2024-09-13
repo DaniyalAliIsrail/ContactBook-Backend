@@ -14,46 +14,8 @@ const dashboardValidate = async (req, res) => {
   }
 };
 
-// const postController = async (req, res) => {                       
-//   try {
-//     const image = req.files[0].path;
-//     const imageFile = await fileUploader(image);
+                      
 
-//     const { name, email, contact } = req.body;
-//     if (!name || !email || !contact) {
-//       return res.json({
-//         status: false,
-//         message: "Required Fields Are Missing!",
-//         data: null,
-//       });
-//     }
-
-//     const times = new Date().toLocaleString('en-US', {
-//       day: 'numeric',
-//       year: 'numeric',
-//       hour: '2-digit',
-//       minute: '2-digit',
-//       second: '2-digit'
-//     });
-
-//     const objtosend = {
-//       name: name,
-//       email: email,
-//       contact: contact,
-//       imageFile: imageFile.secure_url,
-//       verifyUserId: req.verifyuserId,
-//       times : times
-//     };
-
-//     const crudOperation = new CrudModel(objtosend);
-//     const CrudData = await crudOperation.save();
-//     return res.status(200).json({ status: 200,  data: CrudData });
-
-//   } catch (error) {
-//     // console.error("Error in postController:", error);
-//     return res.status(400).json({ status: 400, message: "Internal Server Error" });
-//   }
-// };
 
 const postController = async (req, res) => {
   try {
