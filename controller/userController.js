@@ -139,46 +139,115 @@ const updatePostController = async (req, res) => {
   }
 };
 
+// const searchPostsController = async (req, res) => {
+//   try {
+//     const verifyUserId = req.verifyuserId;
+//     const { search } = req.query;
+
+//     if (!search) {
+//       return res.status(400).json({
+//         status: 400,
+//         message: "Search query parameter is required",
+//       });
+//     }
+
+//     const query = {
+//       verifyUserId,
+//       $or: [
+//         { name: { $regex: new RegExp(search, "i") } },
+
+//         { email: { $regex: new RegExp(search, "i") } },
+
+//         { contact: { $regex: new RegExp(search, "i") } },
+
+//         { times: { $regex: new RegExp(search, "i") } },
+
+//       ],
+//     };
+
+//     const searchResults = await CrudModel.find(query);
+//     res.status(200).json({
+//       status: 200,
+//       message: "Search successful",
+//       data: searchResults,
+//     });
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).json({ status: 500, message: "Internal server error" });
+//   }
+// };
+// const searchPostsController = async (req, res) => {
+//   try {
+//     const verifyUserId = req.verifyuserId; // Ensure this is correctly set in your middleware
+//     const { search } = req.query;
+//     console.log(search)
+//     if (!search) {
+//       return res.status(400).json({
+//         status: 400,
+//         message: "Search query parameter is required",
+//       });
+//     }
+
+//     const query = {
+//       verifyUserId, 
+//       $or: [
+//         { name: { $regex: new RegExp(search, "i") } },
+//         { email: { $regex: new RegExp(search, "i") } },
+//         { contact: { $regex: new RegExp(search, "i") } },
+//         { times: { $regex: new RegExp(search, "i") } },
+//       ],
+//     };
+
+//     const searchResults = await CrudModel.find(query);
+//     res.status(200).json({
+//       status: 200,
+//       message: "Search successful",
+//       data: searchResults,
+//     });
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).json({ status: 500, message: "Internal server error" });
+//   }
+// };
+
 const searchPostsController = async (req, res) => {
   try {
     const verifyUserId = req.verifyuserId;
+    console.log(verifyUserId)
     const { search } = req.query;
 
     if (!search) {
       return res.status(400).json({
         status: 400,
-        message: "Search query parameter is required",
+        message: "Search query is required",
       });
     }
 
-
-
+    // Search sirf name aur email mein karo
     const query = {
       verifyUserId,
       $or: [
-        { name: { $regex: new RegExp(search, "i") } },
-
+        { name: { $regex: new RegExp(search, "i") } }, // case-insensitive search
         { email: { $regex: new RegExp(search, "i") } },
-
-        { contact: { $regex: new RegExp(search, "i") } },
-
-        { times: { $regex: new RegExp(search, "i") } },
-
-        { imageUrl: { $regex: new RegExp(search, "i") } },
       ],
     };
 
     const searchResults = await CrudModel.find(query);
-    res.status(200).json({
+    return res.status(200).json({
       status: 200,
-      message: "Search successful",
+      message: "Search completed",
       data: searchResults,
     });
+
   } catch (err) {
-    console.error(err.message);
-    res.status(500).json({ status: 500, message: "Internal server error" });
+    console.error("Search error:", err);
+    return res.status(500).json({
+      status: 500,
+      message: "Internal server error",
+    });
   }
 };
+
 
 export {
   dashboardValidate,
